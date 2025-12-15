@@ -329,6 +329,8 @@ const carouselStyles = `
     display: flex;
     animation: seamless-scroll 60s linear infinite;
     width: fit-content;
+    /* Espacio mínimo entre los dos sets para evitar que se junten */
+    gap: 1rem;
   }
   
   .carousel-set {
