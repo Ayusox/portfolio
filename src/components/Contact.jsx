@@ -8,17 +8,7 @@ import { Label } from '@/components/ui/label';
 import { useToast } from '@/components/ui/use-toast';
 import { useLanguage } from '../contexts/LanguageContext';
 
-// Importar imágenes locales de tecnologías
-import html5Icon from '../assets/technologies/html5-original.svg';
-import css3Icon from '../assets/technologies/css3-original.svg';
-import javascriptIcon from '../assets/technologies/javascript-original.svg';
-import reactIcon from '../assets/technologies/react-original.svg';
-import bootstrapIcon from '../assets/technologies/bootstrap-original.svg';
-import wordpressIcon from '../assets/technologies/wordpress-plain.svg';
-import gitIcon from '../assets/technologies/git-original.svg';
-import figmaIcon from '../assets/technologies/figma-original.svg';
-import pythonIcon from '../assets/technologies/python-original.svg';
-import vscodeIcon from '../assets/technologies/vscode-original.svg';
+// Usar imágenes desde public para evitar problemas de rutas en GitHub Pages
 
 // Constants
 const ANIMATION_DURATION = 0.5;
@@ -39,16 +29,16 @@ const Contact = () => {
 
   // Memoize technologies array to prevent unnecessary re-renders
   const technologies = useMemo(() => [
-    { name: 'HTML5', icon: html5Icon },
-    { name: 'CSS3', icon: css3Icon },
-    { name: 'JavaScript', icon: javascriptIcon },
-    { name: 'React', icon: reactIcon },
-    { name: 'Bootstrap', icon: bootstrapIcon },
-    { name: 'WordPress', icon: wordpressIcon },
-    { name: 'Git', icon: gitIcon },
-    { name: 'Figma', icon: figmaIcon },
-    { name: 'Python', icon: pythonIcon },
-    { name: 'VS Code', icon: vscodeIcon }
+    { name: 'HTML5', icon: './technologies/html5-original.svg' },
+    { name: 'CSS3', icon: './technologies/css3-original.svg' },
+    { name: 'JavaScript', icon: './technologies/javascript-original.svg' },
+    { name: 'React', icon: './technologies/react-original.svg' },
+    { name: 'Bootstrap', icon: './technologies/bootstrap-original.svg' },
+    { name: 'WordPress', icon: './technologies/wordpress-plain.svg' },
+    { name: 'Git', icon: './technologies/git-original.svg' },
+    { name: 'Figma', icon: './technologies/figma-original.svg' },
+    { name: 'Python', icon: './technologies/python-original.svg' },
+    { name: 'VS Code', icon: './technologies/vscode-original.svg' }
   ], []);
 
   // Memoize form handlers to prevent unnecessary re-renders
