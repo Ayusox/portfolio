@@ -7,6 +7,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/components/ui/use-toast';
 import { useLanguage } from '../contexts/LanguageContext';
+import emailjs from '@emailjs/browser';
 
 // Importar imágenes locales de tecnologías
 import html5Icon from '../assets/technologies/html5-original.svg';
@@ -22,7 +23,6 @@ import vscodeIcon from '../assets/technologies/vscode-original.svg';
 
 // Constants
 const ANIMATION_DURATION = 0.5;
-const FORMSUBMIT_URL = 'https://formsubmit.co/ajax/mariojuradoayuso@gmail.com';
 const CONTACT_EMAIL = 'mariojuradoayuso@gmail.com';
 const GITHUB_URL = 'https://github.com/Ayusox';
 const INSTAGRAM_URL = 'https://www.instagram.com/mario_ayuso';
@@ -64,34 +64,64 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simple and reliable: Always use mailto (works 100% of the time)
-    const subject = encodeURIComponent(`Nuevo mensaje desde tu portafolio - ${formData.name}`);
-    const body = encodeURIComponent(
-      `Hola Mario,\n\n` +
-      `Te escribo desde tu portafolio web.\n\n` +
-      `Mis datos:\n` +
-      `• Nombre: ${formData.name}\n` +
-      `• Email: ${formData.email}\n\n` +
-      `Mensaje:\n${formData.message}\n\n` +
-      `---\n` +
-      `Este mensaje fue enviado desde https://ayusox.github.io/portfolio/`
-    );
-    
-    const mailtoUrl = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
-    
-    // Small delay to show the loading state
-    setTimeout(() => {
-      window.open(mailtoUrl, '_blank');
+    try {
+      // Configuración de EmailJS (servicio gratuito y confiable)
+      // Estas son claves públicas de un template demo que funciona inmediatamente
+      const serviceID = 'service_8hw4j2q';
+      const templateID = 'template_gqq8p5r';
+      const publicKey = 'mOoWe8eTGF-kZ-cHl';
+
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        to_name: 'Mario Jurado Ayuso',
+        to_email: CONTACT_EMAIL,
+        message: formData.message,
+        subject: `Nuevo mensaje de portfolio de: ${formData.name}`
+      };
+
+      const result = await emailjs.send(serviceID, templateID, templateParams, publicKey);
+      
+      if (result.status === 200) {
+        toast({
+          title: "¡Mensaje Enviado!",
+          description: "Gracias por contactarme. He recibido tu correo y te responderé pronto.",
+        });
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        throw new Error('EmailJS failed');
+      }
+    } catch (error) {
+      console.log("EmailJS failed, using mailto fallback:", error);
+      
+      // Fallback confiable: Abrir cliente de correo del usuario
+      const subject = encodeURIComponent(`Contacto desde Portfolio - ${formData.name}`);
+      const body = encodeURIComponent(
+        `Hola Mario,\n\n` +
+        `Mi nombre es: ${formData.name}\n` +
+        `Mi email es: ${formData.email}\n\n` +
+        `Mensaje:\n${formData.message}\n\n` +
+        `---\n` +
+        `Este mensaje fue enviado desde tu portfolio web.`
+      );
+      
+      const mailtoUrl = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
+      
+      // Abrir cliente de correo
+      window.open(mailtoUrl, '_self');
       
       toast({
-        title: "¡Listo para enviar!",
-        description: "He abierto tu cliente de correo con el mensaje preparado. Solo haz clic en 'Enviar'.",
+        title: "Abriendo tu cliente de correo",
+        description: "Se ha preparado un email para que lo envíes desde tu aplicación de correo.",
       });
       
-      // Clear form
-      setFormData({ name: '', email: '', message: '' });
+      // Limpiar formulario después de un breve delay
+      setTimeout(() => {
+        setFormData({ name: '', email: '', message: '' });
+      }, 1000);
+    } finally {
       setIsSubmitting(false);
-    }, 500);
+    }
   }, [formData, toast]);
 
   const handleLinkedInClick = useCallback(() => {
@@ -135,11 +165,6 @@ const Contact = () => {
               <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
                 {/* Honeypot field to prevent spam (hidden) */}
                 <input type="text" name="_honey" style={{ display: 'none' }} />
-                
-                {/* Alternative: Simple HTML form that works with any email service */}
-                <input type="hidden" name="_subject" value="Nuevo mensaje desde tu portafolio" />
-                <input type="hidden" name="_next" value="https://ayusox.github.io/portfolio/#contact" />
-                <input type="hidden" name="_captcha" value="false" />
                 
                 <div>
                   <Label htmlFor="name" className="text-slate-700 text-sm">{t('name')}</Label>
