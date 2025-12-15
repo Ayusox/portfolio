@@ -88,7 +88,7 @@ const Contact = () => {
       if (response.ok) {
         toast({
           title: "✅ ¡Mensaje Enviado Exitosamente!",
-          description: "🎉 Gracias por contactarme, " + formData.name + ". He recibido tu mensaje y te responderé muy pronto. ¡Que tengas un excelente día!",
+          description: "🎉 Gracias por contactarme, " + formData.name + ". He recibido tu mensaje y te responderé lo antes posible.",
           duration: 6000, // Mostrar por 6 segundos
           className: "bg-green-50 border-green-200 text-green-800",
         });
