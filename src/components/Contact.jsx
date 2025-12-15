@@ -7,7 +7,6 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/components/ui/use-toast';
 import { useLanguage } from '../contexts/LanguageContext';
-import emailjs from '@emailjs/browser';
 
 // Importar imágenes locales de tecnologías
 import html5Icon from '../assets/technologies/html5-original.svg';
@@ -23,6 +22,7 @@ import vscodeIcon from '../assets/technologies/vscode-original.svg';
 
 // Constants
 const ANIMATION_DURATION = 0.5;
+const FORMSUBMIT_URL = 'https://formsubmit.co/mariojuradoayuso@gmail.com';
 const CONTACT_EMAIL = 'mariojuradoayuso@gmail.com';
 const GITHUB_URL = 'https://github.com/Ayusox';
 const INSTAGRAM_URL = 'https://www.instagram.com/mario_ayuso';
@@ -65,34 +65,34 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      // Configuración de EmailJS (servicio gratuito y confiable)
-      // Estas son claves públicas de un template demo que funciona inmediatamente
-      const serviceID = 'service_8hw4j2q';
-      const templateID = 'template_gqq8p5r';
-      const publicKey = 'mOoWe8eTGF-kZ-cHl';
-
-      const templateParams = {
-        from_name: formData.name,
-        from_email: formData.email,
-        to_name: 'Mario Jurado Ayuso',
-        to_email: CONTACT_EMAIL,
-        message: formData.message,
-        subject: `Nuevo mensaje de portfolio de: ${formData.name}`
-      };
-
-      const result = await emailjs.send(serviceID, templateID, templateParams, publicKey);
+      // FormSubmit.co configurado correctamente
+      const formData_obj = new FormData();
+      formData_obj.append('name', formData.name);
+      formData_obj.append('email', formData.email);
+      formData_obj.append('message', formData.message);
       
-      if (result.status === 200) {
+      // Configuraciones especiales de FormSubmit
+      formData_obj.append('_subject', `Nuevo mensaje de portfolio de: ${formData.name}`);
+      formData_obj.append('_template', 'table');
+      formData_obj.append('_captcha', 'false');
+      formData_obj.append('_next', window.location.href); // Redirect back to same page
+      
+      const response = await fetch(FORMSUBMIT_URL, {
+        method: 'POST',
+        body: formData_obj
+      });
+
+      if (response.ok) {
         toast({
           title: "¡Mensaje Enviado!",
           description: "Gracias por contactarme. He recibido tu correo y te responderé pronto.",
         });
         setFormData({ name: '', email: '', message: '' });
       } else {
-        throw new Error('EmailJS failed');
+        throw new Error('FormSubmit failed');
       }
     } catch (error) {
-      console.log("EmailJS failed, using mailto fallback:", error);
+      console.log("FormSubmit failed, using mailto fallback:", error);
       
       // Fallback confiable: Abrir cliente de correo del usuario
       const subject = encodeURIComponent(`Contacto desde Portfolio - ${formData.name}`);
