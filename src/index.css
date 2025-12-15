@@ -176,20 +176,35 @@ html, body, #root {
     will-change: transform, opacity;
   }
   
-  /* Deshabilitar animaciones completamente en móviles */
-  section, article, div, .card {
-    opacity: 1 !important;
-    transform: translateZ(0) !important;
-    transition: none !important;
-    animation: none !important;
+  /* Deshabilitar SOLO animaciones de scroll problemáticas en móviles */
+  /* Mantener animaciones continuas (carrusel, fondo) pero deshabilitar whileInView */
+  
+  /* Permitir animaciones continuas específicas */
+  .carousel-animation,
+  .carousel-track,
+  .carousel-container,
+  [class*="carousel"],
+  [class*="animate-pulse"],
+  [class*="animate-spin"],
+  [class*="floating"],
+  .background-animation {
+    animation: unset !important;
+    transition: unset !important;
+    transform: unset !important;
   }
   
-  /* Evitar parpadeos en elementos animados de Framer Motion */
-  [data-framer-motion] {
+  /* Asegurar que Framer Motion animate (no whileInView) funcione */
+  [data-framer-motion]:not([style*="opacity: 0"]) {
+    animation: unset !important;
+    transition: unset !important;
+  }
+  
+  /* Solo elementos con animaciones de scroll específicas */
+  section > article,
+  section > div > article,
+  .scroll-triggered {
     opacity: 1 !important;
     transform: translateZ(0) !important;
-    transition: none !important;
-    animation: none !important;
   }
   
   /* Optimizaciones específicas para iOS Safari */

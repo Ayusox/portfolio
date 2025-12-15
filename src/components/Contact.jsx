@@ -290,7 +290,7 @@ const Contact = () => {
           {/* Simple scrolling container */}
           <div className="w-full overflow-hidden py-4">
             <motion.div 
-              className="flex gap-8 sm:gap-12 md:gap-16"
+              className="flex gap-8 sm:gap-12 md:gap-16 carousel-animation"
               animate={{ x: [0, -100 * technologies.length] }}
               transition={{
                 x: {
