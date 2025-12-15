@@ -64,50 +64,34 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    try {
-      // Using FormSubmit.co for email functionality without backend
-      // This service sends the email directly to the specified address
-      const response = await fetch(FORMSUBMIT_URL, {
-        method: "POST",
-        headers: { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          message: formData.message,
-          _subject: `Nuevo mensaje de portafolio de: ${formData.name}`, // Custom subject line
-          _template: "table", // Nice email template
-          _captcha: "false" // Disable captcha for cleaner UX (optional)
-        })
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to send message');
-      }
-
+    // Simple and reliable: Always use mailto (works 100% of the time)
+    const subject = encodeURIComponent(`Nuevo mensaje desde tu portafolio - ${formData.name}`);
+    const body = encodeURIComponent(
+      `Hola Mario,\n\n` +
+      `Te escribo desde tu portafolio web.\n\n` +
+      `Mis datos:\n` +
+      `• Nombre: ${formData.name}\n` +
+      `• Email: ${formData.email}\n\n` +
+      `Mensaje:\n${formData.message}\n\n` +
+      `---\n` +
+      `Este mensaje fue enviado desde https://ayusox.github.io/portfolio/`
+    );
+    
+    const mailtoUrl = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
+    
+    // Small delay to show the loading state
+    setTimeout(() => {
+      window.open(mailtoUrl, '_blank');
+      
       toast({
-        title: "¡Mensaje Enviado!",
-        description: "Gracias por contactarme. He recibido tu correo y te responderé pronto.",
+        title: "¡Listo para enviar!",
+        description: "He abierto tu cliente de correo con el mensaje preparado. Solo haz clic en 'Enviar'.",
       });
-
+      
+      // Clear form
       setFormData({ name: '', email: '', message: '' });
-    } catch (error) {
-      console.error("Email error:", error);
-      
-      // Fallback: Open mailto link if the API service fails
-      const mailtoUrl = `mailto:${CONTACT_EMAIL}?subject=Contacto desde Portafolio&body=Nombre: ${formData.name}%0D%0AEmail: ${formData.email}%0D%0AMensaje: ${formData.message}`;
-      window.location.href = mailtoUrl;
-      
-      toast({
-        variant: "default", // Using default because we opened the mail client
-        title: "Abriendo cliente de correo...",
-        description: "Hubo un problema con el envío automático, así que he abierto tu aplicación de correo.",
-      });
-    } finally {
       setIsSubmitting(false);
-    }
+    }, 500);
   }, [formData, toast]);
 
   const handleLinkedInClick = useCallback(() => {
@@ -151,6 +135,11 @@ const Contact = () => {
               <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
                 {/* Honeypot field to prevent spam (hidden) */}
                 <input type="text" name="_honey" style={{ display: 'none' }} />
+                
+                {/* Alternative: Simple HTML form that works with any email service */}
+                <input type="hidden" name="_subject" value="Nuevo mensaje desde tu portafolio" />
+                <input type="hidden" name="_next" value="https://ayusox.github.io/portfolio/#contact" />
+                <input type="hidden" name="_captcha" value="false" />
                 
                 <div>
                   <Label htmlFor="name" className="text-slate-700 text-sm">{t('name')}</Label>
