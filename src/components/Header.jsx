@@ -79,13 +79,16 @@ const Header = () => {
 
   return (
     <header 
+      key="main-header"
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
+        "fixed top-0 left-0 right-0 z-[9999] transition-all duration-500 w-full max-w-full",
         scrolled 
           ? "bg-slate-950/95 backdrop-blur-md border-b border-slate-800/50" 
           : "bg-transparent"
       )}
       role="banner"
+      id="main-navigation-header"
+      style={{ position: 'fixed', top: 0, left: 0, right: 0 }}
     >
       <div className="container mx-auto px-4 sm:px-6">
         <nav className="flex items-center justify-between h-14 sm:h-16" role="navigation" aria-label="Navegación principal">
@@ -150,7 +153,7 @@ const Header = () => {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="lg:hidden bg-slate-950/98 backdrop-blur-md border-t border-slate-800/50"
+            className="lg:hidden bg-slate-950/98 backdrop-blur-md border-t border-slate-800/50 w-full"
             id="mobile-menu"
             aria-label="Menú de navegación móvil"
           >

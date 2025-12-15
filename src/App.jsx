@@ -31,7 +31,7 @@ function App() {
           
           <ScrollProgress />
           <Header />
-          <main role="main" id="main-content">
+          <main role="main" id="main-content" className="pt-16">
             <Hero />
             <About />
             <Education />

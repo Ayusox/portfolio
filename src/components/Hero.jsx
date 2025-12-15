@@ -100,15 +100,15 @@ const Hero = () => {
       <div className="absolute top-0 left-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" aria-hidden="true"></div>
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" aria-hidden="true"></div>
 
-      <div className="container mx-auto px-4 sm:px-6 py-12 sm:py-16 lg:py-20 relative z-10">
-        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[calc(100vh-8rem)] lg:min-h-[80vh]">
+      <div className="container mx-auto px-4 sm:px-6 py-16 sm:py-20 lg:py-16 relative z-10 flex items-center h-full">
+        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center w-full">
           
           {/* Mobile/Tablet: Content First, Desktop: Terminal */}
           <motion.aside 
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="order-2 lg:order-1 w-full"
+            className="order-2 lg:order-1 w-full flex-shrink-0"
             aria-label="Terminal de código interactivo"
           >
             <div className="bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-lg overflow-hidden shadow-2xl max-w-full">
@@ -126,8 +126,8 @@ const Hero = () => {
               </div>
               
               {/* Terminal content */}
-              <div className="p-3 sm:p-4 lg:p-6 font-mono text-xs sm:text-sm overflow-x-auto">
-                <div className="text-slate-400 mb-3 sm:mb-4 whitespace-nowrap">
+              <div className="p-4 sm:p-5 lg:p-6 font-mono text-xs sm:text-sm">
+                <div className="text-slate-400 mb-4 sm:mb-5 whitespace-nowrap">
                   <span className="text-green-400">mario@portfolio</span>
                   <span className="text-slate-500">:</span>
                   <span className="text-blue-400">~</span>
@@ -170,9 +170,9 @@ const Hero = () => {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="order-1 lg:order-2 w-full text-center lg:text-left"
+            className="order-1 lg:order-2 w-full text-center lg:text-left flex-shrink-0"
           >
-            <div className="space-y-4 sm:space-y-6">
+            <div className="space-y-6 sm:space-y-8">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -200,7 +200,7 @@ const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.9 }}
-              className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6 sm:mt-8 justify-center lg:justify-start"
+              className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-8 sm:mt-10 justify-center lg:justify-start"
               aria-label="Acciones principales"
             >
               <Button 
@@ -227,7 +227,7 @@ const Hero = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.1 }}
-              className="flex items-center justify-center lg:justify-start gap-3 text-sm mt-4 sm:mt-6"
+              className="flex items-center justify-center lg:justify-start gap-3 text-sm mt-6 sm:mt-8"
               role="status"
               aria-label="Estado de disponibilidad"
             >

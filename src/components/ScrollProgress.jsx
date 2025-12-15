@@ -22,7 +22,10 @@ const ScrollProgress = () => {
   }, []);
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-[60] h-1 bg-slate-800/20">
+    <div 
+      className="fixed top-0 left-0 right-0 z-[10000] h-1 bg-transparent pointer-events-none"
+      style={{ position: 'fixed', top: 0, left: 0, right: 0, height: '4px' }}
+    >
       <motion.div
         className="h-full bg-gradient-to-r from-blue-500 via-purple-500 to-cyan-500"
         style={{ width: `${scrollProgress}%` }}

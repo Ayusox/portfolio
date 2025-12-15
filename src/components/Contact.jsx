@@ -287,28 +287,38 @@ const Contact = () => {
           <div className="absolute left-0 top-0 w-6 sm:w-8 lg:w-12 h-full z-10" style={{ background: 'linear-gradient(to right, rgba(241, 245, 249, 0.7), rgba(241, 245, 249, 0.5), rgba(241, 245, 249, 0.25), transparent)' }}></div>
           <div className="absolute right-0 top-0 w-6 sm:w-8 lg:w-12 h-full z-10" style={{ background: 'linear-gradient(to left, rgba(241, 245, 249, 0.7), rgba(241, 245, 249, 0.5), rgba(241, 245, 249, 0.25), transparent)' }}></div>
             
-          {/* Scrolling container with seamless infinite loop */}
-          <div className="carousel-container py-3 sm:py-4 lg:py-5">
-            <div className="carousel-track">
-              {/* Create 2 identical copies for seamless scrolling */}
-              {[...Array(2)].map((_, setIndex) => (
-                <div key={setIndex} className="carousel-set">
-                  {technologies.map((tech, index) => (
-                    <div key={`set-${setIndex}-${index}`} className="carousel-item">
-                      <img 
-                        src={tech.icon} 
-                        alt={`Logo de ${tech.name} - Tecnología utilizada por Mario Jurado Ayuso`}
-                        className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 object-contain group-hover:scale-110 transition-transform duration-300"
-                        loading="lazy"
-                        width="64"
-                        height="64"
-                      />
-                      <span className="text-xs text-slate-700 mt-1.5 sm:mt-2 font-semibold tracking-wide uppercase opacity-85 hover:opacity-100 transition-opacity duration-300 text-center">{tech.name}</span>
-                    </div>
-                  ))}
+          {/* Simple scrolling container */}
+          <div className="w-full overflow-hidden py-4">
+            <motion.div 
+              className="flex gap-8 sm:gap-12 md:gap-16"
+              animate={{ x: [0, -100 * technologies.length] }}
+              transition={{
+                x: {
+                  repeat: Infinity,
+                  repeatType: "loop",
+                  duration: 40,
+                  ease: "linear",
+                },
+              }}
+              style={{ width: `${technologies.length * 200}px` }}
+            >
+              {/* Render technologies twice for seamless loop */}
+              {[...technologies, ...technologies].map((tech, index) => (
+                <div key={index} className="flex flex-col items-center justify-center min-w-[80px] flex-shrink-0">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 flex items-center justify-center mb-2">
+                    <img 
+                      src={tech.icon} 
+                      alt={`Logo de ${tech.name} - Tecnología utilizada por Mario Jurado Ayuso`}
+                      className="w-full h-full object-contain"
+                      loading="lazy"
+                    />
+                  </div>
+                  <span className="text-xs text-slate-700 font-semibold tracking-wide uppercase opacity-85 text-center">
+                    {tech.name}
+                  </span>
                 </div>
               ))}
-            </div>
+            </motion.div>
           </div>
         </div>
       </motion.div>
@@ -318,94 +328,4 @@ const Contact = () => {
 
 export default Contact;
 
-// CSS personalizado para el carrusel seamless
-// CSS personalizado para el carrusel seamless
-const carouselStyles = `
-  .carousel-container {
-    overflow: hidden;
-    width: 100%;
-  }
-  
-  .carousel-track {
-    display: flex;
-    animation: seamless-scroll 60s linear infinite;
-    width: fit-content;
-    /* >> APLICAR ESPACIO DE SEPARACIÓN AQUÍ PARA SEPARAR LOS CAROUSEL-SET << */
-    gap: 1.5rem; /* Valor por defecto (móvil) */
-  }
-  
-  .carousel-set {
-    display: flex;
-    flex-shrink: 0;
-    /* MANTENER EL ESPACIO DE SEPARACIÓN DENTRO DE CADA SET */
-    gap: 1.5rem; /* Valor por defecto (móvil) */
-  }
-  
-  @media (min-width: 480px) {
-    .carousel-track,
-    .carousel-set {
-      gap: 2rem;
-    }
-  }
-  
-  @media (min-width: 640px) {
-    .carousel-track,
-    .carousel-set {
-      gap: 2.5rem;
-    }
-  }
-  
-  @media (min-width: 768px) {
-    .carousel-track,
-    .carousel-set {
-      gap: 3rem;
-    }
-  }
-  
-  @media (min-width: 1024px) {
-    .carousel-track,
-    .carousel-set {
-      gap: 4rem;
-    }
-  }
-  
-  @media (min-width: 1280px) {
-    .carousel-track,
-    .carousel-set {
-      gap: 5rem;
-    }
-  }
-  
-  .carousel-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex-shrink: 0;
-    transition: all 0.3s ease;
-  }
-  
-  .carousel-item:hover {
-    transform: translateY(-2px);
-  }
-  
-  .carousel-item span {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    letter-spacing: 0.05em;
-  }
-  
-  @keyframes seamless-scroll {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-50%);
-    }
-  }
-`;
-
-// Inyectar estilos
-if (typeof document !== 'undefined') {
-  const styleSheet = document.createElement('style');
-  styleSheet.textContent = carouselStyles;
-  document.head.appendChild(styleSheet);
-}
+// Carrusel ahora usa Framer Motion - no necesita CSS personalizado
