@@ -1,16 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 export const useOptimizedAnimations = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
   useEffect(() => {
-    // Detectar si es móvil
+    // Detectar si es móvil (especialmente iOS)
     const checkMobile = () => {
       const userAgent = navigator.userAgent || navigator.vendor || window.opera;
       const isMobileDevice = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase());
       const isSmallScreen = window.innerWidth <= 768;
-      setIsMobile(isMobileDevice || isSmallScreen);
+      const isIOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
+      setIsMobile(isMobileDevice || isSmallScreen || isIOS);
     };
 
     // Detectar preferencia de movimiento reducido
@@ -32,6 +33,23 @@ export const useOptimizedAnimations = () => {
       mediaQuery.removeEventListener('change', checkReducedMotion);
     };
   }, []);
+
+  // IntersectionObserver para animaciones que solo se ejecutan una vez
+  const createSingleUseObserver = useCallback((callback) => {
+    if (isMobile || prefersReducedMotion) return null;
+    
+    return new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-in');
+          callback(entry.target);
+          // Desconectar para que no se vuelva a animar
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.2, rootMargin: '-50px' }
+    );
+  }, [isMobile, prefersReducedMotion]);
 
   // Configuraciones de animación optimizadas
   const getAnimationConfig = (baseConfig = {}) => {
@@ -65,6 +83,7 @@ export const useOptimizedAnimations = () => {
   return {
     isMobile,
     prefersReducedMotion,
-    getAnimationConfig
+    getAnimationConfig,
+    createSingleUseObserver
   };
 };

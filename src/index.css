@@ -152,10 +152,11 @@ html, body, #root {
   }
 }
 
-/* Prevenir problemas de 100vh en móviles */
+/* Prevenir problemas de 100vh en móviles - Especialmente iOS */
 @media (max-width: 768px) {
   .min-h-screen {
     min-height: calc(100vh - 4rem);
+    min-height: calc(100dvh - 4rem); /* Dynamic viewport height para iOS */
   }
   
   /* Asegurar que no hay scroll horizontal */
@@ -168,17 +169,58 @@ html, body, #root {
     box-sizing: border-box;
   }
   
-  /* Transiciones suaves para móviles sin animaciones JS */
-  section, article, div {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: opacity 0.3s ease, transform 0.3s ease;
+  /* Forzar aceleración por GPU y prevenir parpadeos */
+  section, article, div, .card {
+    transform: translateZ(0) !important;
+    backface-visibility: hidden;
+    will-change: transform, opacity;
   }
   
-  /* Evitar parpadeos en elementos animados */
+  /* Deshabilitar animaciones completamente en móviles */
+  section, article, div, .card {
+    opacity: 1 !important;
+    transform: translateZ(0) !important;
+    transition: none !important;
+    animation: none !important;
+  }
+  
+  /* Evitar parpadeos en elementos animados de Framer Motion */
   [data-framer-motion] {
     opacity: 1 !important;
-    transform: none !important;
+    transform: translateZ(0) !important;
+    transition: none !important;
+    animation: none !important;
+  }
+  
+  /* Optimizaciones específicas para iOS Safari */
+  * {
+    -webkit-transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    -webkit-perspective: 1000;
+  }
+  
+  /* Prevenir scroll bounce en iOS */
+  body {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: none;
+  }
+}
+
+/* Animaciones CSS para desktop que se ejecutan una sola vez */
+@media (min-width: 769px) {
+  .animate-in {
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }
 
@@ -208,6 +250,24 @@ header[role="banner"] {
   outline: 1px solid red !important;
 }
 */
+
+/* Optimizaciones para iOS Safari - Prevenir parpadeos */
+.section, .card {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform, opacity;
+}
+
+/* Optimizar header fijo para iOS */
+header[role="banner"] {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 9999 !important;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
 
 /* Asegurar que solo haya un header visible */
 body > div > header:not(:first-of-type) {
