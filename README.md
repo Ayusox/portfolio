@@ -9,7 +9,7 @@ Hola! Soy Mario Jurado Ayuso, desarrollador frontend de Córdoba. Este es mi por
 
 ## Lo que encontrarás aquí
 
-He construido este portfolio desde cero usando React y Tailwind CSS. La idea era crear algo que realmente me representara como desarrollador, así que incluí un terminal interactivo en la página principal (porque me encanta la línea de comandos) y un diseño que mezcla lo profesional con lo personal.
+He construido este portfolio desde cero usando React y Tailwind CSS. La idea era crear algo que realmente me representara como desarrollador, así que incluí un terminal interactivo en la página principal y un diseño que mezcla lo profesional con lo personal.
 
 **Algunas cosas que me gustan del resultado:**
 - El terminal que simula código escribiéndose en tiempo real
@@ -71,18 +71,7 @@ src/
 - **Terser** - Para comprimir el JavaScript
 - **PostCSS + Autoprefixer** - Para compatibilidad CSS
 
-## Si quieres ejecutarlo localmente
 
-Necesitas Node.js 18 o superior. Después:
-
-```bash
-git clone https://github.com/Ayusox/portfolio.git
-cd portfolio
-npm install
-npm run dev
-```
-
-El servidor se abre en `http://localhost:3000`. 
 
 **Comandos útiles:**
 - `npm run dev` - Desarrollo con hot reload
@@ -154,21 +143,5 @@ No necesita variables de entorno ni configuración especial.
 
 **Carrusel infinito:** El carrusel de tecnologías usa animaciones CSS puras para un scroll infinito súper suave sin JavaScript pesado.
 
-## Contacto
-
-Si tienes alguna pregunta o sugerencia, puedes contactarme:
-
-- **Portfolio:** [ayusox.github.io/portfolio](https://ayusox.github.io/portfolio/)
-- **GitHub:** [@Ayusox](https://github.com/Ayusox)
-- **Email:** mariojuradoayuso@gmail.com
-- **Ubicación:** Hinojosa del Duque, Córdoba
-
-## Licencia
-
-MIT License - básicamente puedes hacer lo que quieras con el código.
-
----
 
 Desarrollado por Mario Jurado Ayuso - Desarrollador Frontend & Ciberseguridad
-
-*PD: Si te gusta el proyecto, una estrella en GitHub siempre se agradece* ⭐
