@@ -1,9 +1,11 @@
 import { motion } from 'framer-motion';
 import { GraduationCap, Server, Code, Shield } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useOptimizedAnimations } from '../hooks/useOptimizedAnimations';
 
 const Education = () => {
   const { t } = useLanguage();
+  const { getAnimationConfig } = useOptimizedAnimations();
   
   const educationData = [
     {
@@ -35,10 +37,11 @@ const Education = () => {
     <section className="py-20 bg-white">
       <div className="container mx-auto px-4">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          {...getAnimationConfig({
+            initial: { opacity: 0, y: 20 },
+            whileInView: { opacity: 1, y: 0 },
+            transition: { duration: 0.5 }
+          })}
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
@@ -53,10 +56,11 @@ const Education = () => {
           {educationData.map((edu, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              {...getAnimationConfig({
+                initial: { opacity: 0, y: 20 },
+                whileInView: { opacity: 1, y: 0 },
+                transition: { duration: 0.5, delay: index * 0.1 }
+              })}
               whileHover={{ y: -8 }}
               className="bg-gradient-to-br from-slate-50 to-slate-100 p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
             >
