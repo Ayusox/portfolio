@@ -5,7 +5,13 @@
 /* Prevent horizontal scroll */
 html, body {
   overflow-x: hidden;
+  overflow-y: auto; /* Evitar doble barra vertical: usa solo la del documento */
   max-width: 100vw;
+}
+
+/* Evitar contenedores con scroll vertical propio que duplican la barra */
+section, main, #root, .container {
+  overflow-y: visible;
 }
 
 @layer base {
