@@ -334,41 +334,35 @@ const carouselStyles = `
   .carousel-set {
     display: flex;
     flex-shrink: 0;
-    padding: 0 0.75rem;
     gap: 1.5rem;
   }
   
   @media (min-width: 480px) {
     .carousel-set {
-      padding: 0 1rem;
       gap: 2rem;
     }
   }
   
   @media (min-width: 640px) {
     .carousel-set {
-      padding: 0 1.5rem;
       gap: 2.5rem;
     }
   }
   
   @media (min-width: 768px) {
     .carousel-set {
-      padding: 0 2rem;
       gap: 3rem;
     }
   }
   
   @media (min-width: 1024px) {
     .carousel-set {
-      padding: 0 2.5rem;
       gap: 4rem;
     }
   }
   
   @media (min-width: 1280px) {
     .carousel-set {
-      padding: 0 3rem;
       gap: 5rem;
     }
   }
