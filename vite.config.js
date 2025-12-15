@@ -2,9 +2,9 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
   plugins: [react()],
-  base: process.env.NODE_ENV === 'production' ? '/portfolio/' : '/',
+  base: command === 'build' ? '/portfolio/' : '/',
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
@@ -50,4 +50,4 @@ export default defineConfig({
     // Remover comentarios en producción
     legalComments: 'none',
   },
-});
+}));
