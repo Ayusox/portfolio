@@ -319,6 +319,7 @@ const Contact = () => {
 export default Contact;
 
 // CSS personalizado para el carrusel seamless
+// CSS personalizado para el carrusel seamless
 const carouselStyles = `
   .carousel-container {
     overflow: hidden;
@@ -329,39 +330,47 @@ const carouselStyles = `
     display: flex;
     animation: seamless-scroll 60s linear infinite;
     width: fit-content;
+    /* >> APLICAR ESPACIO DE SEPARACIÓN AQUÍ PARA SEPARAR LOS CAROUSEL-SET << */
+    gap: 1.5rem; /* Valor por defecto (móvil) */
   }
   
   .carousel-set {
     display: flex;
     flex-shrink: 0;
-    gap: 1.5rem;
+    /* MANTENER EL ESPACIO DE SEPARACIÓN DENTRO DE CADA SET */
+    gap: 1.5rem; /* Valor por defecto (móvil) */
   }
   
   @media (min-width: 480px) {
+    .carousel-track,
     .carousel-set {
       gap: 2rem;
     }
   }
   
   @media (min-width: 640px) {
+    .carousel-track,
     .carousel-set {
       gap: 2.5rem;
     }
   }
   
   @media (min-width: 768px) {
+    .carousel-track,
     .carousel-set {
       gap: 3rem;
     }
   }
   
   @media (min-width: 1024px) {
+    .carousel-track,
     .carousel-set {
       gap: 4rem;
     }
   }
   
   @media (min-width: 1280px) {
+    .carousel-track,
     .carousel-set {
       gap: 5rem;
     }
@@ -383,10 +392,6 @@ const carouselStyles = `
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     letter-spacing: 0.05em;
   }
-  
-
-  
-
   
   @keyframes seamless-scroll {
     0% {
