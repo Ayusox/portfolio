@@ -3,20 +3,9 @@
 @tailwind utilities;
 
 /* Prevent horizontal scroll */
-/* Forzar que solo el documento (html) tenga scroll vertical */
-html {
-  overflow-y: scroll;
-}
-body {
+html, body {
   overflow-x: hidden;
-  overflow-y: visible;
   max-width: 100vw;
-  height: auto;
-}
-
-/* Evitar contenedores con scroll vertical propio que duplican la barra */
-section, main, #root, .container {
-  overflow-y: visible;
 }
 
 @layer base {
