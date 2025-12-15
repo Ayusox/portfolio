@@ -169,49 +169,11 @@ html, body, #root {
     box-sizing: border-box;
   }
   
-  /* Forzar aceleración por GPU y prevenir parpadeos */
-  section, article, div, .card {
-    transform: translateZ(0) !important;
-    backface-visibility: hidden;
-    will-change: transform, opacity;
-  }
-  
-  /* Deshabilitar SOLO animaciones de scroll problemáticas en móviles */
-  /* Mantener animaciones continuas (carrusel, fondo) pero deshabilitar whileInView */
-  
-  /* Permitir animaciones continuas específicas */
-  .carousel-animation,
-  .carousel-track,
-  .carousel-container,
-  [class*="carousel"],
-  [class*="animate-pulse"],
-  [class*="animate-spin"],
-  [class*="floating"],
-  .background-animation {
-    animation: unset !important;
-    transition: unset !important;
-    transform: unset !important;
-  }
-  
-  /* Asegurar que Framer Motion animate (no whileInView) funcione */
-  [data-framer-motion]:not([style*="opacity: 0"]) {
-    animation: unset !important;
-    transition: unset !important;
-  }
-  
-  /* Solo elementos con animaciones de scroll específicas */
-  section > article,
-  section > div > article,
-  .scroll-triggered {
+  /* SOLO deshabilitar elementos específicos que causan parpadeo */
+  .scroll-animation-disabled {
     opacity: 1 !important;
     transform: translateZ(0) !important;
-  }
-  
-  /* Optimizaciones específicas para iOS Safari */
-  * {
-    -webkit-transform: translateZ(0);
-    -webkit-backface-visibility: hidden;
-    -webkit-perspective: 1000;
+    transition: none !important;
   }
   
   /* Prevenir scroll bounce en iOS */

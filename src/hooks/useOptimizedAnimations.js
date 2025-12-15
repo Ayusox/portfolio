@@ -53,23 +53,20 @@ export const useOptimizedAnimations = () => {
 
   // Configuraciones de animación optimizadas
   const getAnimationConfig = (baseConfig = {}) => {
-    // Deshabilitar solo animaciones whileInView en móviles, permitir animate continuas
+    // Solo deshabilitar whileInView en móviles, mantener todo lo demás
     if ((prefersReducedMotion || isMobile) && baseConfig.whileInView) {
       const finalState = baseConfig.whileInView || {};
       return {
         initial: finalState,
         animate: finalState,
+        className: "scroll-animation-disabled", // Agregar clase para CSS
         transition: { duration: 0 }
       };
     }
 
-    // Permitir animaciones continuas (animate) en móviles
-    if (isMobile && baseConfig.animate && !baseConfig.whileInView) {
-      return {
-        initial: baseConfig.initial || {},
-        animate: baseConfig.animate,
-        transition: baseConfig.transition || {}
-      };
+    // Permitir TODAS las demás animaciones en móviles (animate, etc.)
+    if (isMobile || prefersReducedMotion) {
+      return baseConfig; // Devolver configuración original
     }
 
     // Desktop - animaciones normales
