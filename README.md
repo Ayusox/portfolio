@@ -5,7 +5,7 @@
 [![Vite](https://img.shields.io/badge/Vite-4.5.14-purple)](https://vitejs.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4.17-cyan)](https://tailwindcss.com/)
 
-Hola! Soy Mario Jurado Ayuso, desarrollador frontend de Córdoba. Este es mi portfolio personal donde muestro mis proyectos y habilidades.
+Hola! Soy Mario Jurado Ayuso, desarrollador frontend. Este es mi portfolio personal donde muestro mis proyectos y habilidades.
 
 ## Lo que encontrarás aquí
 
@@ -16,11 +16,11 @@ He construido este portfolio desde cero usando React y Tailwind CSS. La idea era
 - Sistema bilingüe completo (español/inglés) porque trabajo con clientes internacionales
 - Integración con la API de GitHub para mostrar mis stats reales
 - Un generador de CV que crea PDFs automáticamente
-- Carrusel infinito de tecnologías que uso
+- Carrusel infinito de tecnologías 
 
 **En el lado técnico:**
-- Bundle final de solo 143KB (comprimido) - me obsesioné un poco con la optimización
-- SEO completo porque quiero que me encuentren en Google
+- Bundle final de solo 143KB (comprimido) - 
+- SEO completo para Google
 - Accesible para lectores de pantalla y navegación por teclado
 - Funciona perfecto en móviles (mobile-first approach)
 
@@ -53,7 +53,7 @@ src/
 ## Stack tecnológico
 
 **Lo principal:**
-- **React 18** - Mi framework favorito para frontend
+- **React 18** - framework para frontend
 - **Vite** - Mucho más rápido que Create React App
 - **Tailwind CSS** - Para estilos rápidos y consistentes
 - **Framer Motion** - Para las animaciones suaves
@@ -108,7 +108,7 @@ Me obsesioné un poco con que cargara rápido:
 - Code splitting para cargar solo lo necesario
 - Usé SVGs locales en lugar de CDNs externos
 
-Los Core Web Vitals están en verde, que era mi objetivo.
+Los Core Web Vitals están en verde, que era el objetivo.
 
 ## SEO y accesibilidad
 
@@ -145,3 +145,4 @@ No necesita variables de entorno ni configuración especial.
 
 
 Desarrollado por Mario Jurado Ayuso - Desarrollador Frontend & Ciberseguridad
+
