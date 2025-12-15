@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback } from 'react';
 
 // Toast implementation with visual notifications
 let toastId = 0;
@@ -22,9 +22,24 @@ export const useToast = () => {
   }, []);
 
   const showVisualToast = (toast, duration) => {
+    // Find the contact section to position toast relative to it
+    const contactSection = document.getElementById('contact');
+    const formContainer = contactSection?.querySelector('form')?.parentElement;
+    
     // Create toast element
     const toastEl = document.createElement('div');
-    toastEl.className = `fixed top-4 right-4 z-50 max-w-sm w-full bg-white border rounded-lg shadow-lg p-4 transform transition-all duration-300 translate-x-full ${toast.className}`;
+    
+    if (formContainer) {
+      // Position relative to form container
+      toastEl.className = `absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-full z-50 max-w-sm w-full bg-white border rounded-lg shadow-lg p-4 transition-all duration-300 opacity-0 scale-95 mb-4 ${toast.className}`;
+      formContainer.style.position = 'relative';
+      formContainer.appendChild(toastEl);
+    } else {
+      // Fallback to fixed position but lower on screen
+      toastEl.className = `fixed bottom-20 right-4 z-50 max-w-sm w-full bg-white border rounded-lg shadow-lg p-4 transform transition-all duration-300 translate-x-full ${toast.className}`;
+      document.body.appendChild(toastEl);
+    }
+    
     toastEl.innerHTML = `
       <div class="flex items-start">
         <div class="flex-1">
@@ -39,17 +54,25 @@ export const useToast = () => {
       </div>
     `;
     
-    document.body.appendChild(toastEl);
-    
     // Animate in
     setTimeout(() => {
-      toastEl.style.transform = 'translateX(0)';
+      if (formContainer) {
+        toastEl.style.opacity = '1';
+        toastEl.style.transform = 'translateX(-50%) translateY(-100%) scale(1)';
+      } else {
+        toastEl.style.transform = 'translateX(0)';
+      }
     }, 10);
     
     // Auto remove
     setTimeout(() => {
       if (toastEl.parentElement) {
-        toastEl.style.transform = 'translateX(100%)';
+        if (formContainer) {
+          toastEl.style.opacity = '0';
+          toastEl.style.transform = 'translateX(-50%) translateY(-100%) scale(0.95)';
+        } else {
+          toastEl.style.transform = 'translateX(100%)';
+        }
         setTimeout(() => {
           if (toastEl.parentElement) {
             toastEl.remove();
