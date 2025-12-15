@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
 import { Code2, Shield, Database } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
-import { useOptimizedAnimations } from '../hooks/useOptimizedAnimations';
 import { useMemo } from 'react';
 
 // Constants
@@ -11,7 +10,6 @@ const PROGRESS_ANIMATION_DURATION = 1;
 
 const Skills = () => {
   const { t } = useLanguage();
-  const { getAnimationConfig } = useOptimizedAnimations();
   
   // Memoize skill categories to prevent unnecessary re-renders
   const skillCategories = useMemo(() => [
@@ -66,11 +64,10 @@ const Skills = () => {
     <section id="skills" className="py-12 sm:py-16 bg-slate-100">
       <div className="container mx-auto px-4 sm:px-6">
         <motion.header
-          {...getAnimationConfig({
-            initial: { opacity: 0, y: 20 },
-            whileInView: { opacity: 1, y: 0 },
-            transition: { duration: ANIMATION_DURATION }
-          })}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: ANIMATION_DURATION }}
           className="text-center mb-8 sm:mb-12"
         >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
@@ -86,11 +83,10 @@ const Skills = () => {
           {skillCategories.map((category, categoryIndex) => (
             <motion.article
               key={category.title}
-              {...getAnimationConfig({
-                initial: { opacity: 0, y: 30 },
-                whileInView: { opacity: 1, y: 0 },
-                transition: { duration: ANIMATION_DURATION, delay: categoryIndex * STAGGER_DELAY }
-              })}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: ANIMATION_DURATION, delay: categoryIndex * STAGGER_DELAY }}
               className="bg-white rounded-2xl p-4 sm:p-6 shadow-lg hover:shadow-xl transition-all duration-300 group w-full"
               aria-labelledby={`category-${categoryIndex}-title`}
             >

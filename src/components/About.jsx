@@ -2,7 +2,6 @@ import { motion } from 'framer-motion';
 import { MapPin, Calendar, Code } from 'lucide-react';
 import { useGitHubStats } from '../hooks/useGitHubStats';
 import { useLanguage } from '../contexts/LanguageContext';
-import { useOptimizedAnimations } from '../hooks/useOptimizedAnimations';
 import { useMemo } from 'react';
 
 // Constants
@@ -12,7 +11,6 @@ const USERNAME = 'Ayusox';
 const About = () => {
   const { t } = useLanguage();
   const { publicRepos, totalCommits, topLanguages, loading, error, isFallback } = useGitHubStats(USERNAME);
-  const { getAnimationConfig } = useOptimizedAnimations();
 
   // Memoize GitHub profile URL to prevent unnecessary re-renders
   const githubProfileUrl = useMemo(() => `https://github.com/${USERNAME}`, []);
@@ -29,32 +27,29 @@ const About = () => {
           
           {/* Content */}
           <motion.article
-            {...getAnimationConfig({
-              initial: { opacity: 0, x: -50 },
-              whileInView: { opacity: 1, x: 0 },
-              transition: { duration: ANIMATION_DURATION }
-            })}
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: ANIMATION_DURATION }}
             className="w-full order-1 lg:order-1"
           >
             <header className="text-center lg:text-left mb-6 sm:mb-8">
               <motion.h2 
                 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4"
-                {...getAnimationConfig({
-                  initial: { opacity: 0, y: 20 },
-                  whileInView: { opacity: 1, y: 0 },
-                  transition: { delay: 0.2 }
-                })}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
               >
                 {t('aboutTitle')}
               </motion.h2>
               
               <motion.div 
                 className="w-16 sm:w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mx-auto lg:mx-0"
-                {...getAnimationConfig({
-                  initial: { width: 0 },
-                  whileInView: { width: 80 },
-                  transition: { delay: 0.4, duration: 0.8 }
-                })}
+                initial={{ width: 0 }}
+                whileInView={{ width: 80 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4, duration: 0.8 }}
                 aria-hidden="true"
               />
             </header>
