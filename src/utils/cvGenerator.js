@@ -339,5 +339,5 @@ export const generateCV = () => {
   doc.setTextColor(...colors.textLight);
   doc.text('CV generado automáticamente desde portafolio web', pageWidth / 2, bottomY, { align: 'center' });
 
-  doc.save('Mario_Jurado_Ayuso_CV_Profesional.pdf');
+  doc.save('Mario_Jurado_Ayuso_CV.pdf');
 };

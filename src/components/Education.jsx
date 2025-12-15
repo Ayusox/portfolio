@@ -1,9 +1,22 @@
 import { motion } from 'framer-motion';
 import { GraduationCap, Server, Code, Shield } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useState, useEffect } from 'react';
 
 const Education = () => {
   const { t } = useLanguage();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
   
   const educationData = [
     {
@@ -50,23 +63,30 @@ const Education = () => {
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-          {educationData.map((edu, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ y: -8 }}
-              className="bg-gradient-to-br from-slate-50 to-slate-100 p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
-            >
-              <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${edu.color} flex items-center justify-center mb-4 shadow-md`}>
-                <edu.icon className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-2">{edu.title}</h3>
-              <p className="text-slate-600 text-sm">{edu.subtitle}</p>
-            </motion.div>
-          ))}
+          {educationData.map((edu, index) => {
+            const MotionComponent = isMobile ? 'div' : motion.div;
+            const animationProps = isMobile ? {} : {
+              initial: { opacity: 0, y: 20 },
+              whileInView: { opacity: 1, y: 0 },
+              viewport: { once: true },
+              transition: { duration: 0.5, delay: index * 0.1 },
+              whileHover: { y: -8 }
+            };
+
+            return (
+              <MotionComponent
+                key={index}
+                {...animationProps}
+                className="bg-gradient-to-br from-slate-50 to-slate-100 p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
+              >
+                <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${edu.color} flex items-center justify-center mb-4 shadow-md`}>
+                  <edu.icon className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-slate-900 mb-2">{edu.title}</h3>
+                <p className="text-slate-600 text-sm">{edu.subtitle}</p>
+              </MotionComponent>
+            );
+          })}
         </div>
       </div>
     </section>

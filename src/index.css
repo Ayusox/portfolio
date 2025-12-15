@@ -152,4 +152,51 @@ html, body, #root {
   }
 }
 
+/* Prevenir problemas de 100vh en móviles */
+@media (max-width: 768px) {
+  .min-h-screen {
+    min-height: calc(100vh - 4rem);
+  }
+  
+  /* Asegurar que no hay scroll horizontal */
+  body, html {
+    overflow-x: hidden !important;
+  }
+  
+  /* Prevenir elementos que se salgan */
+  * {
+    box-sizing: border-box;
+  }
+}
 
+/* Prevenir duplicación de headers */
+header[role="banner"] {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 9999 !important;
+  width: 100% !important;
+}
+
+/* Prevenir múltiples scrollbars */
+.container, .section, main, div[role="main"] {
+  overflow: visible;
+}
+
+/* Evitar 100vw que causa scroll horizontal */
+* {
+  max-width: 100%;
+}
+
+/* Debug temporal - descomenta para ver elementos que se desbordan */
+/*
+* {
+  outline: 1px solid red !important;
+}
+*/
+
+/* Asegurar que solo haya un header visible */
+body > div > header:not(:first-of-type) {
+  display: none !important;
+}
