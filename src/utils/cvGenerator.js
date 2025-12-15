@@ -204,7 +204,7 @@ export const generateCV = () => {
 
   doc.setFontSize(10);
   doc.setTextColor(...colors.textGray);
-  const summaryText = "Desarrollador orientado a crear soluciones web seguras, visualmente atractivas y bien estructuradas. Me motiva combinar diseño web, inteligencia artificial y buenas prácticas de seguridad para construir productos útiles y confiables. Me motiva crear soluciones que conecten creatividad, tecnología y utilidad real.";
+  const summaryText = "Desarrollador orientado a crear soluciones web seguras, visualmente atractivas y bien estructuradas. Me motiva combinar diseño web, inteligencia artificial y buenas prácticas de seguridad para construir productos útiles y confiables. Mi objetivo es desarrollar proyectos claros, prácticos y agradables de usar.";
   const splitSummary = doc.splitTextToSize(summaryText, mainContentWidth - 12);
   
   // Calcular la posición vertical centrada
