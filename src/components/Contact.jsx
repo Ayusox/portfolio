@@ -64,14 +64,6 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Notificación de inicio
-    toast({
-      title: "📤 Enviando mensaje...",
-      description: "Por favor espera un momento mientras procesamos tu mensaje.",
-      duration: 2000,
-      className: "bg-yellow-50 border-yellow-200 text-yellow-800",
-    });
-
     try {
       // FormSubmit.co configurado correctamente
       const formData_obj = new FormData();
@@ -119,13 +111,6 @@ const Contact = () => {
       
       // Abrir cliente de correo
       window.open(mailtoUrl, '_self');
-      
-      toast({
-        title: "📧 Abriendo tu cliente de correo",
-        description: "💡 Se ha preparado un email con tu mensaje para " + formData.name + ". Solo haz clic en 'Enviar' en tu aplicación de correo.",
-        duration: 8000, // Mostrar por 8 segundos
-        className: "bg-blue-50 border-blue-200 text-blue-800",
-      });
       
       // Limpiar formulario después de un breve delay
       setTimeout(() => {
