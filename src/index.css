@@ -167,6 +167,19 @@ html, body, #root {
   * {
     box-sizing: border-box;
   }
+  
+  /* Transiciones suaves para móviles sin animaciones JS */
+  section, article, div {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  
+  /* Evitar parpadeos en elementos animados */
+  [data-framer-motion] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
 
 /* Prevenir duplicación de headers */

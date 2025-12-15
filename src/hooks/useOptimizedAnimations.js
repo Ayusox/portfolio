@@ -35,32 +35,17 @@ export const useOptimizedAnimations = () => {
 
   // Configuraciones de animación optimizadas
   const getAnimationConfig = (baseConfig = {}) => {
-    if (prefersReducedMotion) {
+    if (prefersReducedMotion || isMobile) {
+      // En móviles y con preferencias de movimiento reducido, no usar animaciones de scroll
+      const finalState = baseConfig.whileInView || baseConfig.animate || {};
       return {
-        initial: baseConfig.initial || {},
-        animate: baseConfig.animate || baseConfig.whileInView || {},
+        initial: finalState,
+        animate: finalState,
         transition: { duration: 0 }
       };
     }
 
-    if (isMobile) {
-      return {
-        initial: baseConfig.initial || {},
-        whileInView: baseConfig.whileInView || baseConfig.animate || {},
-        viewport: { 
-          once: true, 
-          margin: "-50px",
-          amount: 0.3
-        },
-        transition: {
-          duration: (baseConfig.transition?.duration || 0.6) * 0.7,
-          ease: "easeOut",
-          ...baseConfig.transition
-        }
-      };
-    }
-
-    // Desktop - animaciones normales
+    // Solo desktop - animaciones normales
     return {
       initial: baseConfig.initial || {},
       whileInView: baseConfig.whileInView || baseConfig.animate || {},
