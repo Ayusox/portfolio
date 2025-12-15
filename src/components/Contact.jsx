@@ -73,10 +73,15 @@ const Contact = () => {
       formData_obj.append('_subject', `Nuevo mensaje de portfolio de: ${formData.name}`);
       formData_obj.append('_template', 'table');
       formData_obj.append('_captcha', 'false');
-      formData_obj.append('_next', window.location.href); // Redirect back to same page
+      formData_obj.append('_next', 'https://ayusox.github.io/portfolio/'); // URL específica para GitHub Pages
+      formData_obj.append('_cc', 'mariojuradoayuso@gmail.com'); // Copia adicional
+      formData_obj.append('_autoresponse', 'Gracias por contactarme. He recibido tu mensaje y te responderé pronto.');
       
       const response = await fetch(FORMSUBMIT_URL, {
         method: 'POST',
+        headers: {
+          'Accept': 'application/json'
+        },
         body: formData_obj
       });
 
