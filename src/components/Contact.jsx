@@ -29,16 +29,16 @@ const Contact = () => {
 
   // Memoize technologies array to prevent unnecessary re-renders
   const technologies = useMemo(() => [
-    { name: 'HTML5', icon: './technologies/html5-original.svg' },
-    { name: 'CSS3', icon: './technologies/css3-original.svg' },
-    { name: 'JavaScript', icon: './technologies/javascript-original.svg' },
-    { name: 'React', icon: './technologies/react-original.svg' },
-    { name: 'Bootstrap', icon: './technologies/bootstrap-original.svg' },
-    { name: 'WordPress', icon: './technologies/wordpress-plain.svg' },
-    { name: 'Git', icon: './technologies/git-original.svg' },
-    { name: 'Figma', icon: './technologies/figma-original.svg' },
-    { name: 'Python', icon: './technologies/python-original.svg' },
-    { name: 'VS Code', icon: './technologies/vscode-original.svg' }
+    { name: 'HTML5', icon: './html5-original.svg' },
+    { name: 'CSS3', icon: './css3-original.svg' },
+    { name: 'JavaScript', icon: './javascript-original.svg' },
+    { name: 'React', icon: './react-original.svg' },
+    { name: 'Bootstrap', icon: './bootstrap-original.svg' },
+    { name: 'WordPress', icon: './wordpress-plain.svg' },
+    { name: 'Git', icon: './git-original.svg' },
+    { name: 'Figma', icon: './figma-original.svg' },
+    { name: 'Python', icon: './python-original.svg' },
+    { name: 'VS Code', icon: './vscode-original.svg' }
   ], []);
 
   // Memoize form handlers to prevent unnecessary re-renders
