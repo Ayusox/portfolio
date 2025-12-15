@@ -64,6 +64,14 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
+    // Notificación de inicio
+    toast({
+      title: "📤 Enviando mensaje...",
+      description: "Por favor espera un momento mientras procesamos tu mensaje.",
+      duration: 2000,
+      className: "bg-yellow-50 border-yellow-200 text-yellow-800",
+    });
+
     try {
       // FormSubmit.co configurado correctamente
       const formData_obj = new FormData();
@@ -84,8 +92,10 @@ const Contact = () => {
 
       if (response.ok) {
         toast({
-          title: "¡Mensaje Enviado!",
-          description: "Gracias por contactarme. He recibido tu correo y te responderé pronto.",
+          title: "✅ ¡Mensaje Enviado Exitosamente!",
+          description: "🎉 Gracias por contactarme, " + formData.name + ". He recibido tu mensaje y te responderé muy pronto. ¡Que tengas un excelente día!",
+          duration: 6000, // Mostrar por 6 segundos
+          className: "bg-green-50 border-green-200 text-green-800",
         });
         setFormData({ name: '', email: '', message: '' });
       } else {
@@ -111,8 +121,10 @@ const Contact = () => {
       window.open(mailtoUrl, '_self');
       
       toast({
-        title: "Abriendo tu cliente de correo",
-        description: "Se ha preparado un email para que lo envíes desde tu aplicación de correo.",
+        title: "📧 Abriendo tu cliente de correo",
+        description: "💡 Se ha preparado un email con tu mensaje para " + formData.name + ". Solo haz clic en 'Enviar' en tu aplicación de correo.",
+        duration: 8000, // Mostrar por 8 segundos
+        className: "bg-blue-50 border-blue-200 text-blue-800",
       });
       
       // Limpiar formulario después de un breve delay
