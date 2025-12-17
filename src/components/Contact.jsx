@@ -7,15 +7,18 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/components/ui/use-toast';
 import { useLanguage } from '../contexts/LanguageContext';
-
-// Usar imágenes desde public para evitar problemas de rutas en GitHub Pages
+import emailjs from '@emailjs/browser';
 
 // Constants
 const ANIMATION_DURATION = 0.5;
-const FORMSUBMIT_URL = 'https://formsubmit.co/mariojuradoayuso@gmail.com';
 const CONTACT_EMAIL = 'mariojuradoayuso@gmail.com';
 const GITHUB_URL = 'https://github.com/Ayusox';
 const INSTAGRAM_URL = 'https://www.instagram.com/mario_ayuso';
+
+// EmailJS Configuration
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
 const Contact = () => {
   const { t } = useLanguage();
@@ -54,6 +57,18 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
+    // Validación anti-spam: mensaje mínimo de 10 caracteres
+    if (formData.message.trim().length < 10) {
+      toast({
+        title: "❌ Mensaje muy corto",
+        description: "Por favor, escribe un mensaje de al menos 10 caracteres.",
+        duration: 4000,
+        className: "bg-red-50 border-red-200 text-red-800",
+      });
+      setIsSubmitting(false);
+      return;
+    }
+
     // Notificación de inicio
     toast({
       title: "📤 Enviando mensaje...",
@@ -63,29 +78,27 @@ const Contact = () => {
     });
 
     try {
-      // FormSubmit.co configurado correctamente
-      const formData_obj = new FormData();
-      formData_obj.append('name', formData.name);
-      formData_obj.append('email', formData.email);
-      formData_obj.append('message', formData.message);
-      
-      // Configuraciones especiales de FormSubmit
-      formData_obj.append('_subject', `Nuevo mensaje de portfolio de: ${formData.name}`);
-      formData_obj.append('_template', 'table');
-      formData_obj.append('_captcha', 'false');
-      formData_obj.append('_next', 'https://ayusox.github.io/portfolio/'); // URL específica para GitHub Pages
-      formData_obj.append('_cc', 'mariojuradoayuso@gmail.com'); // Copia adicional
-      formData_obj.append('_autoresponse', 'Gracias por contactarme. He recibido tu mensaje y te responderé pronto.');
-      
-      const response = await fetch(FORMSUBMIT_URL, {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json'
-        },
-        body: formData_obj
-      });
+      // Verificar que las variables de entorno estén configuradas
+      if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
+        throw new Error('EmailJS configuration missing');
+      }
 
-      if (response.ok) {
+      // Parámetros del template de EmailJS
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        message: formData.message,
+      };
+
+      // Enviar email usando EmailJS
+      const result = await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        templateParams,
+        EMAILJS_PUBLIC_KEY
+      );
+
+      if (result.status === 200) {
         toast({
           title: "✅ ¡Mensaje Enviado Exitosamente!",
           description: "🎉 Gracias por contactarme, " + formData.name + ". He recibido tu mensaje y te responderé lo antes posible.",
@@ -94,38 +107,17 @@ const Contact = () => {
         });
         setFormData({ name: '', email: '', message: '' });
       } else {
-        throw new Error('FormSubmit failed');
+        throw new Error('EmailJS failed');
       }
     } catch (error) {
-      console.log("FormSubmit failed, using mailto fallback:", error);
-      
-      // Fallback confiable: Abrir cliente de correo del usuario
-      const subject = encodeURIComponent(`Contacto desde Portfolio - ${formData.name}`);
-      const body = encodeURIComponent(
-        `Hola Mario,\n\n` +
-        `Mi nombre es: ${formData.name}\n` +
-        `Mi email es: ${formData.email}\n\n` +
-        `Mensaje:\n${formData.message}\n\n` +
-        `---\n` +
-        `Este mensaje fue enviado desde tu portfolio web.`
-      );
-      
-      const mailtoUrl = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
-      
-      // Abrir cliente de correo
-      window.open(mailtoUrl, '_self');
+      console.error("Error sending email:", error);
       
       toast({
-        title: "📧 Abriendo tu cliente de correo",
-        description: "💡 Se ha preparado un email con tu mensaje para " + formData.name + ". Solo haz clic en 'Enviar' en tu aplicación de correo.",
-        duration: 8000, // Mostrar por 8 segundos
-        className: "bg-blue-50 border-blue-200 text-blue-800",
+        title: "❌ Error al enviar mensaje",
+        description: "Hubo un problema al enviar tu mensaje. Por favor, inténtalo de nuevo o contáctame directamente por email.",
+        duration: 6000,
+        className: "bg-red-50 border-red-200 text-red-800",
       });
-      
-      // Limpiar formulario después de un breve delay
-      setTimeout(() => {
-        setFormData({ name: '', email: '', message: '' });
-      }, 1000);
     } finally {
       setIsSubmitting(false);
     }
