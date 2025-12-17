@@ -183,9 +183,8 @@ const Hero = () => {
                   <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 leading-none pb-3">
                     {t('frontend').includes('&') ? (
                       <>
-                        <span className="block sm:inline">Frontend</span>
-                        <span className="block sm:inline"> & </span>
-                        <span className="block sm:inline">Ciberseguridad</span>
+                        <span className="inline-block">Frontend &</span>{' '}
+                        <span className="inline-block">Ciberseguridad</span>
                       </>
                     ) : (
                       t('frontend')
