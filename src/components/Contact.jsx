@@ -17,7 +17,8 @@ const INSTAGRAM_URL = 'https://www.instagram.com/mario_ayuso';
 
 // EmailJS Configuration
 const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+const EMAILJS_TEMPLATE_ID_ADMIN = import.meta.env.VITE_EMAILJS_TEMPLATE_ID_ADMIN;
+const EMAILJS_TEMPLATE_ID_CLIENT = import.meta.env.VITE_EMAILJS_TEMPLATE_ID_CLIENT;
 const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
 const Contact = () => {
@@ -79,7 +80,7 @@ const Contact = () => {
 
     try {
       // Verificar que las variables de entorno estén configuradas
-      if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
+      if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID_ADMIN || !EMAILJS_TEMPLATE_ID_CLIENT || !EMAILJS_PUBLIC_KEY) {
         throw new Error('EmailJS configuration missing');
       }
 
@@ -90,24 +91,38 @@ const Contact = () => {
         message: formData.message,
       };
 
-      // Enviar email usando EmailJS
-      const result = await emailjs.send(
+      // Primer envío: Email para el administrador (yo)
+      const adminResult = await emailjs.send(
         EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
+        EMAILJS_TEMPLATE_ID_ADMIN,
         templateParams,
         EMAILJS_PUBLIC_KEY
       );
 
-      if (result.status === 200) {
+      // Solo continuar si el primer envío fue exitoso
+      if (adminResult.status !== 200) {
+        throw new Error('Failed to send admin email');
+      }
+
+      // Segundo envío: Auto-respuesta para el cliente
+      const clientResult = await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID_CLIENT,
+        templateParams,
+        EMAILJS_PUBLIC_KEY
+      );
+
+      // Verificar que ambos envíos fueron exitosos
+      if (adminResult.status === 200 && clientResult.status === 200) {
         toast({
           title: "✅ ¡Mensaje Enviado Exitosamente!",
-          description: "🎉 Gracias por contactarme, " + formData.name + ". He recibido tu mensaje y te responderé lo antes posible.",
+          description: "🎉 Gracias por contactarme, " + formData.name + ". He recibido tu mensaje y te responderé lo antes posible. También recibirás una confirmación en tu email.",
           duration: 8000, // Mostrar por 8 segundos
           className: "bg-green-50 border-green-200 text-green-800",
         });
         setFormData({ name: '', email: '', message: '' });
       } else {
-        throw new Error('EmailJS failed');
+        throw new Error('EmailJS client email failed');
       }
     } catch (error) {
       console.error("Error sending email:", error);
