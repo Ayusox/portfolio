@@ -134,7 +134,7 @@ export const LanguageProvider = ({ children }) => {
       // Web Services
       needWebsite: '¿Necesitas una web?',
       webServiceDescription: 'En el mundo digital actual, tener una presencia online profesional no es opcional, es esencial. Te ayudo a crear sitios web modernos, rápidos y optimizados que conviertan visitantes en clientes.',
-      webServiceSubtext: 'A la derecha puedes ver mi último proyecto: una página web completa para SnackGo, un local de comida rápida. Desde landing pages hasta aplicaciones web completas, desarrollo soluciones digitales que impulsan tu negocio hacia el éxito.',
+      webServiceSubtext: 'Aquí puedes ver mi último proyecto: una página web completa para SnackGo, un local de comida rápida. Desde landing pages hasta aplicaciones web completas, desarrollo soluciones digitales que impulsan tu negocio hacia el éxito.',
       webPresence: 'Presencia Digital',
       webPresenceDesc: 'Destaca en internet con un diseño único',
       responsive: 'Diseño Responsivo',
