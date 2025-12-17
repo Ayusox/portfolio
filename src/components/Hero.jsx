@@ -180,7 +180,7 @@ const Hero = () => {
               >
                 <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
                   {t('developer')}
-                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
+                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 leading-none pb-3">
                     {t('frontend')}
                   </span>
                 </h1>

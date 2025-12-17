@@ -14,6 +14,7 @@ const ANIMATION_DURATION = 0.5;
 const CONTACT_EMAIL = 'mariojuradoayuso@gmail.com';
 const GITHUB_URL = 'https://github.com/Ayusox';
 const INSTAGRAM_URL = 'https://www.instagram.com/mario_ayuso';
+const LINKEDIN_URL = 'https://www.linkedin.com/in/ayuso-dev';
 
 // EmailJS Configuration
 const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
@@ -139,11 +140,8 @@ const Contact = () => {
   }, [formData, toast]);
 
   const handleLinkedInClick = useCallback(() => {
-    toast({
-      title: "LinkedIn",
-      description: "🚧 ¡Próximamente! El perfil de LinkedIn estará disponible pronto. 🚀",
-    });
-  }, [toast]);
+    window.open(LINKEDIN_URL, '_blank', 'noopener,noreferrer');
+  }, []);
 
   return (
     <section id="contact" className="pt-4 sm:pt-6 pb-0 bg-slate-100">
@@ -287,14 +285,20 @@ const Contact = () => {
                     Instagram @mario_ayuso
                   </Button>
                 </a>
-                <Button
-                  onClick={handleLinkedInClick}
-                  variant="outline"
-                  className="w-full justify-start border-slate-300 text-slate-700 hover:bg-slate-50 min-h-[40px] touch-manipulation text-sm py-2"
+                <a
+                  href={LINKEDIN_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block"
                 >
-                  <Linkedin className="w-4 h-4 mr-2 text-blue-600 flex-shrink-0" />
-                  LinkedIn Próximamente
-                </Button>
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start border-slate-300 text-slate-700 hover:bg-slate-50 min-h-[40px] touch-manipulation text-sm py-2"
+                  >
+                    <Linkedin className="w-4 h-4 mr-2 text-blue-600 flex-shrink-0" />
+                    LinkedIn @ayuso-dev
+                  </Button>
+                </a>
               </div>
             </motion.div>
           </div>

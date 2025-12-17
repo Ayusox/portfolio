@@ -28,7 +28,7 @@ export const LanguageProvider = ({ children }) => {
       
       // Hero
       developer: 'Desarrollador',
-      frontend: 'Frontend',
+      frontend: 'Frontend & Ciberseguridad',
       heroDescription: 'Especializado en crear interfaces modernas y experiencias digitales excepcionales. Apasionado por el código limpio y las tecnologías web.',
       viewProjects: 'Ver Proyectos',
       downloadCV: 'Descargar CV',
