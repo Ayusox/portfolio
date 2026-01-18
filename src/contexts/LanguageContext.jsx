@@ -156,7 +156,7 @@ export const LanguageProvider = ({ children }) => {
       
       // Hero
       developer: 'Developer',
-      frontend: 'Frontend',
+      frontend: 'Frontend & Cybersecurity',
       heroDescription: 'Specialized in creating modern interfaces and exceptional digital experiences. Passionate about clean code and web technologies.',
       viewProjects: 'View Projects',
       downloadCV: 'Download CV',
