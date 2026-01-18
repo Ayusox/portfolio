@@ -84,9 +84,9 @@ src/
 
 **Sobre mí** - Información personal y mis stats de GitHub en tiempo real (repos, commits estimados, lenguajes principales).
 
-**Educación** - Mi formación: desde SMR hasta el máster en ciberseguridad que estoy cursando.
+**Educación** - Mi formación: desde SMR hasta el máster en ciberseguridad.
 
-**Habilidades** - Barras de progreso animadas organizadas por categorías. Intenté ser honesto con los porcentajes.
+**Habilidades** - Barras de progreso animadas organizadas por categorías.
 
 **Mi metodología** - Explico cómo trabajo en mis proyectos, desde la idea inicial hasta el lanzamiento.
 
@@ -145,4 +145,5 @@ No necesita variables de entorno ni configuración especial.
 
 
 Desarrollado por Mario Jurado Ayuso - Desarrollador Frontend & Ciberseguridad
+
 
