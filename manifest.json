@@ -1,0 +1,35 @@
+{
+  "name": "Mario Jurado Ayuso - Desarrollador Frontend & Ciberseguridad",
+  "short_name": "Mario Ayuso Portfolio",
+  "description": "Portfolio profesional de Mario Jurado Ayuso, desarrollador frontend especializado en React, JavaScript y ciberseguridad",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#3b82f6",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/vite.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["portfolio", "developer", "frontend", "cybersecurity"],
+  "lang": "es",
+  "scope": "/",
+  "screenshots": [
+    {
+      "src": "/screenshot-wide.jpg",
+      "sizes": "1280x720",
+      "type": "image/jpeg",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/screenshot-narrow.jpg", 
+      "sizes": "640x1136",
+      "type": "image/jpeg",
+      "form_factor": "narrow"
+    }
+  ]
+}
