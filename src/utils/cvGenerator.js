@@ -127,7 +127,18 @@ export const generateCV = () => {
     yPos += 6; // Reducido de 7 a 6 para contacto más compacto
   });
 
-  yPos += 10; // Ajustado para mejor distribución vertical
+  yPos += 8;
+
+  // Nota de disponibilidad
+  doc.setFontSize(7);
+  doc.setTextColor(...colors.textGray);
+  doc.setFont('helvetica', 'italic');
+  const noteText = 'Si no puedo atender su llamada, por favor envie un mensaje a WhatsApp o LinkedIn para coordinar una respuesta inmediata.';
+  const splitNote = doc.splitTextToSize(noteText, sidebarWidth - 20);
+  doc.text(splitNote, 10, yPos);
+  yPos += splitNote.length * 3 + 8;
+
+  yPos += 2; // Ajustado para mejor distribución vertical
 
   // 3. Skills (Visual Bars)
   addSidebarTitle('HABILIDADES');
