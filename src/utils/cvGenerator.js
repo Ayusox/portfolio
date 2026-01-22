@@ -316,12 +316,12 @@ export const generateCV = () => {
     {
       degree: 'Desarrollo de Aplicaciones Multiplataforma (DAM)',
       school: 'Formación Profesional Grado Superior',
-      year: '2020 - 2022'
+      year: '2022 - 2024'
     },
     {
       degree: 'Sistemas Microinformáticos y Redes (SMR)',
       school: 'Formación Profesional Grado Medio',
-      year: '2018 - 2020'
+      year: '2020 - 2022'
     }
   ];
 
