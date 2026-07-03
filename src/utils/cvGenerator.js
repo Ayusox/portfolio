@@ -203,7 +203,7 @@ export const generateCV = () => {
   doc.setFont('helvetica', 'normal');
   doc.text('Desarrollador Frontend & Ciberseguridad', mainContentStart, yPos);
 
-  yPos += 15;
+  yPos += 8;
 
   // 6. Profile Summary
   const boxHeight = 25;
@@ -224,7 +224,7 @@ export const generateCV = () => {
   
   doc.text(splitSummary, mainContentStart + 6, centeredY);
 
-  yPos += 40; // Aumentado de 35 a 40 para bajar las secciones
+  yPos += 37; // Aumentado para dar más respiro entre descripción y sección de experiencia
 
   // Helper for Main Sections
   const addMainSection = (title) => {
@@ -250,6 +250,13 @@ export const generateCV = () => {
   addMainSection('EXPERIENCIA LABORAL');
 
   const experience = [
+    {
+      role: 'Desarrollador Web en Prácticas',
+      company: 'Ceifor Estudios',
+      location: 'Córdoba',
+      period: '3 meses',
+      details: 'Desarrollo y mantenimiento de aplicaciones web en PHP. Gestión y configuración de servidores mediante Plesk, administración de dominios y alojamiento web. Apoyo en la personalización y mantenimiento de sitios en WordPress y Moodle.'
+    },
     {
       role: 'Desarrollador en Prácticas',
       company: 'Fersoft',
@@ -294,10 +301,11 @@ export const generateCV = () => {
     const descLines = doc.splitTextToSize(exp.details, mainContentWidth);
     doc.text(descLines, mainContentStart, yPos);
     
-    yPos += 18;
+    // Calcular el espacio real que ocupa el texto y añadir separación reducida
+    yPos += descLines.length * 5 + 5;
   });
 
-  yPos += 8; // Aumentado de 5 a 8 para más separación entre secciones
+  yPos += 2; // separación entre secciones reducida
 
   // 8. Education
   addMainSection('EDUCACIÓN ACADÉMICA');
@@ -345,7 +353,7 @@ export const generateCV = () => {
   });
 
   // Footer / Bottom Brand
-  const bottomY = pageHeight - 10;
+  const bottomY = pageHeight - 6;
   doc.setFontSize(8);
   doc.setTextColor(...colors.textLight);
   doc.text('CV generado automáticamente desde portafolio web', pageWidth / 2, bottomY, { align: 'center' });
